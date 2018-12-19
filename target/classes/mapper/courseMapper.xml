@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "mybatis-3-mapper" "mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.CourseMapper">
+	<resultMap type="Course" id="baseResultMap">
+		<id column="c_no" property="cno"/>
+		<result column="c_name" property="cname"/>
+		<result column="c_credit" property="ccredit"/>
+	</resultMap>
+	<!-- 插入标签 -->
+	<insert id="addCourse" parameterType="Course">
+		insert into course(c_no,c_name,c_credit)
+		values(#{cno},#{cname},#{ccredit})
+	</insert>
+	<!-- 删除标签 -->
+	<delete id="deleteCourseByCno" parameterType="String">
+		delete from course where c_no=#{cno}
+	</delete>
+	<!-- 更新标签 -->
+	<update id="UpdateCourse">
+		update course
+		set c_no=#{newCourse.cno},
+			c_name=#{newCourse.cname},
+			c_credit=#{newCourse.ccredit}
+		where c_no=#{oldCno}
+	</update>
+	<!-- 查询标签 -->
+	<select id="queryAll" resultMap="baseResultMap">
+		select * from course
+	</select>
+	<select id="queryCourseByCno" parameterType="String" resultMap="baseResultMap">
+		select * from course where c_no=#{cno}
+	</select>
+	<select id="queryCourseByCname" parameterType="String" resultMap="baseResultMap">
+		select * from course where c_name=#{cname}
+	</select>
+	<select id="queryCourseByCcredit" parameterType="Integer" resultMap="baseResultMap">
+		select * from course where c_credit=#{ccredit}
+	</select>
+	<select id="isExistsCourseByCno" parameterType="String" resultType="boolean">
+		select count(*) from course where c_no=#{cno}
+	</select>
+</mapper>

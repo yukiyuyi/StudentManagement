@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "mybatis-3-mapper" "mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.UserMapper">
+	<resultMap type="User" id="baseResultMap">
+		<id column="user_name" property="uname"/>
+		<result column="pass_word" property="upassword"/>
+	</resultMap>
+	<!-- 插入标签 -->
+	<insert id="addUser" parameterType="User">
+		insert into user(user_name,pass_word)
+		values(#{uname},#{upassword})
+	</insert>
+	<!-- 查询标签 -->
+	<select id="isExistsUserByUname" parameterType="String" resultType="boolean">
+		select count(*) 
+		from user 
+		where user_name=#{uname}
+	</select>
+	<select id="isExistUser" parameterType="User" resultType="boolean">
+		select count(*) 
+		from user 
+		where user_name=#{uname} and pass_word=#{upassword}
+	</select>
+	<select id="queryUser" parameterType="String" resultMap="baseResultMap">
+		select *
+		from user 
+		where user_name=#{uname}
+	</select>
+</mapper>

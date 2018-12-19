@@ -1,0 +1,1 @@
+这是一个基于Spring+SpringMVC+Mbatis（ssm）的简易学生管理系统，主要包括学生、课程和成绩管理。

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "mybatis-3-mapper" "mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.StudentMapper">
+	<resultMap type="Student" id="baseResultMap">
+		<id column="s_no" property="sno"/>
+		<result column="s_name" property="sname"/>
+		<result column="s_sex" property="ssex"/>
+	</resultMap>
+	<!-- 插入标签 -->
+	<insert id="addStudent" parameterType="Student">
+		insert into student(s_no,s_name,s_sex)
+		values(#{sno},#{sname},#{ssex})
+	</insert>
+	<!-- 删除标签 -->
+	<delete id="deleteStudentBySno" parameterType="String">
+		delete from student where s_no=#{sno}
+	</delete>
+	<!-- 更新标签 -->
+	<update id="updateStudent">
+		update student
+		set s_no=#{newStudent.sno},
+			s_name=#{newStudent.sname},
+			s_sex=#{newStudent.ssex}
+		where s_no=#{oldSno}
+	</update>
+	<!-- 查询标签 -->
+	<select id="queryAll" resultMap="baseResultMap">
+		select * from student
+	</select>
+	<select id="queryStudentBySno" parameterType="String" resultMap="baseResultMap">
+		select * from student where s_no=#{sno}
+	</select>
+	<select id="queryStudentBySname" parameterType="String" resultMap="baseResultMap">
+		select * from student where s_name=#{sname}
+	</select>
+	<select id="queryStudentBySsex" parameterType="String" resultMap="baseResultMap">
+		select * from student where s_sex=#{ssex}
+	</select>
+	<select id="isExistsStudentBySno" parameterType="String" resultType="boolean">
+		select count(*) from student where s_no=#{sno}
+	</select>
+</mapper>
